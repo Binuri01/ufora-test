@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import {Text, View } from "react-native";
+import Welcome from "./src/app/Welcome";
+
+//custom fonts
+import AppLoading from "expo-app-loading";
+import { useFonts } from "expo-font";
+
+//React Navigation
+import RootStack from "../ufora/src/nav/RootStack"
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "PoppinsRegular": require("./src/assets/fonts/Poppins-Regular.ttf"),
+    "PoppinsMedium": require("./src/assets/fonts/Poppins-Medium.ttf"),
+    "PoppinsBold": require("./src/assets/fonts/Poppins-Bold.ttf")
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <RootStack />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
